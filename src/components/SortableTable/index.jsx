@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shortId from 'shortid';
-
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 
 const SortableTable = ({ data: inboundData, sortDefault }) => {
   const [heads, ...body] = inboundData;
@@ -29,15 +29,18 @@ const SortableTable = ({ data: inboundData, sortDefault }) => {
   const sortFunction = (a, b) => {
     const { col, asc } = sort;
 
-    if (a[col] === b[col]) {
+    const aVal = Number(a[col]) || a[col];
+    const bVal = Number(b[col]) || b[col];
+
+    if (aVal === bVal) {
       return 0;
     }
 
     if (asc) {
-      return a[col] < b[col] ? -1 : 1;
+      return aVal < bVal ? -1 : 1;
     }
 
-    return a[col] > b[col] ? -1 : 1;
+    return aVal > bVal ? -1 : 1;
   };
 
   const setSortDefault = () => {
@@ -49,6 +52,17 @@ const SortableTable = ({ data: inboundData, sortDefault }) => {
     }
 
     return { col: 0, asc: true };
+  };
+
+  const getChevron = (col) => {
+    if (col === sort.col) {
+      if (sort.asc) {
+        return <FaAngleDown />;
+      }
+      return <FaAngleUp />;
+    }
+
+    return null;
   };
 
 
@@ -64,6 +78,7 @@ const SortableTable = ({ data: inboundData, sortDefault }) => {
                 onClick={() => handleHeadClick(i)}
               >
                 {head}
+                {getChevron(i)}
               </th>
             ))}
           </tr>

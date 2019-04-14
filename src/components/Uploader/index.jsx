@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Uploader = ({ label, onFileRead }) => {
+const Uploader = ({ label, onFileRead, ...props }) => {
   let fileReader;
   const id = `${label.replace(/\s/g, '_')}_${Math.random().toString(36).substr(2, 9)}`;
 
@@ -19,8 +19,8 @@ const Uploader = ({ label, onFileRead }) => {
         type="file"
         className="custom-file-input"
         id={id}
-        placeholder="Email"
         onChange={handleChange}
+        {...props}
       />
       <span className="custom-file-label">{label}</span>
     </label>

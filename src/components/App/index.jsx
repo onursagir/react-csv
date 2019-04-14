@@ -15,7 +15,7 @@ const App = () => {
         <div className="col">
           <div className="card mt-5">
             <div className="card-body">
-              <Uploader label="Kies een bestand" onFileRead={handleFileRead} />
+              <Uploader label="Kies een bestand" onFileRead={handleFileRead} accept=".csv" />
               <SortableTable data={data} sortDefault={{ column: 'sur_name', direction: 'asc' }} />
             </div>
           </div>
